@@ -1,5 +1,6 @@
 package equipmentcraft.items;
 
+import equipmentcraft.Utils;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -67,7 +68,7 @@ public class ItemTool extends Item {
 	}
 	
 	public static Material getPartMaterial(ItemStack itemStack, int part){
-		NBTTagCompound nbtTagCompound = getTagCompound(itemStack);
+		NBTTagCompound nbtTagCompound = Utils.getTagCompound(itemStack);
 		if(nbtTagCompound!=null){
 			NBTTagList list = nbtTagCompound.getTagList("Materials", NBT.TAG_STRING);
 			if(list!=null){
@@ -75,11 +76,6 @@ public class ItemTool extends Item {
 			}
 		}
 		return null;
-	}
-	
-	private static NBTTagCompound getTagCompound(ItemStack itemStack){
-		NBTTagCompound nbtTagCompound = itemStack.getTagCompound();
-		return nbtTagCompound==null?null:nbtTagCompound.getCompoundTag("ToolCraft");
 	}
 	
 }
