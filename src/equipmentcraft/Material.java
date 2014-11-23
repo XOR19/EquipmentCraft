@@ -18,13 +18,16 @@ public class Material {
 	
 	private int harvestLevel;
 	
-	public Material(String name, Item item, int color, int harvestLevel) {
+	private float breakSpeed;
+	
+	public Material(String name, Item item, int color, int harvestLevel, float breakSpeed) {
 		if(materials.containsKey(name))
 			throw new IllegalArgumentException("Duplicated Material Name \""+name+"\"");
 		this.name = name;
 		this.item = item;
 		this.color = color;
 		this.harvestLevel = harvestLevel;
+		this.breakSpeed = breakSpeed;
 		materials.put(name, this);
 		materialsItems.put(item, this);
 	}
@@ -51,6 +54,10 @@ public class Material {
 	
 	public static Material getByItem(Item item) {
 		return materialsItems.get(item);
+	}
+
+	public float getBreakSpeed() {
+		return this.breakSpeed;
 	}
 	
 }

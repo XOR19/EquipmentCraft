@@ -161,5 +161,15 @@ public class ItemParts extends Item {
 			list.add(is);
 		}
 	}
+
+	public Material getMaterial(NBTTagCompound tagCompound){
+		if(tagCompound==null)
+			return null;
+		int material = tagCompound.getInteger("Material");
+		if(material!=0){
+			return this.materials[material-1];
+		}
+		return null;
+	}
 	
 }

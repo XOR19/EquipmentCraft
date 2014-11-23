@@ -15,7 +15,7 @@ import equipmentcraft.Utils;
 public class ItemHoe extends ItemCore {
 
 	public ItemHoe(ItemParts[] parts, ItemEffect[] effects) {
-		super(parts, effects, Utils.a("hoe"));
+		super(parts, effects, Utils.a("hoe"), new Block[0]);
 	}
 	
 	@Override

@@ -1,6 +1,7 @@
 package equipmentcraft.items;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -18,11 +19,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.Constants.NBT;
 
 import com.google.common.collect.Multimap;
 
 import equipmentcraft.ItemEffect;
+import equipmentcraft.Material;
 import equipmentcraft.Utils;
 
 public class ItemCore extends Item {
@@ -41,13 +44,16 @@ public class ItemCore extends Item {
 	
 	private String name;
 	
-	public ItemCore(ItemParts[] parts, ItemEffect[] effects, String[] toolClasses){
+	private Set<Block> effective;
+	
+	public ItemCore(ItemParts[] parts, ItemEffect[] effects, String[] toolClasses, Block[] effective){
 		this.parts = parts;
 		this.partIcons = new IIcon[parts.length][];
 		this.effects = effects;
 		this.effectIcons = new IIcon[effects.length][];
 		this.toolClasses = toolClasses;
 		this.toolClassesSet = Utils.asSet(toolClasses);
+		this.effective = Utils.asSet(effective);
 		setHasSubtypes(false);
 		setMaxStackSize(1);
 	}
@@ -71,6 +77,17 @@ public class ItemCore extends Item {
 		return nbtTagCompound.getFloat("BreakSpeed");
 	}
 	
+	@Override
+	public float getDigSpeed(ItemStack stack, Block block, int metadata) {
+		NBTTagCompound nbtTagCompound = Utils.getTagCompound(stack);
+		if(nbtTagCompound==null)
+			return 1.0F;
+		if(ForgeHooks.isToolEffective(stack, block, metadata) || this.effective.contains(block)){
+			return nbtTagCompound.getFloat("BreakSpeed");
+		}
+		return 1.0f;
+	}
+
 	@Override
 	public boolean isFull3D() {
 		return true;
@@ -198,9 +215,12 @@ public class ItemCore extends Item {
 		NBTTagCompound nbtTagCompound = Utils.getTagCompound(stack);
 		if(nbtTagCompound==null)
 			return -1;
+		int[] harvestLevels = nbtTagCompound.getIntArray("HarvestLevels");
 		for(int i=0; i<this.toolClasses.length; i++){
 			if(toolClass.equals(this.toolClasses[i])){
-				return nbtTagCompound.getIntArray("harvestLevel")[i];
+				if(harvestLevels==null || harvestLevels.length<=i)
+					return 0;
+				return harvestLevels[i];
 			}
 		}
 		return -1;
@@ -228,8 +248,12 @@ public class ItemCore extends Item {
 			NBTTagCompound partTag = this.parts[i].save(this, parts[i]);
 			partsList.appendTag(partTag);
 		}
+		Material material = this.parts[0].getMaterial(partsList.getCompoundTagAt(0));
 		nbtTagCompound.setTag("Parts", partsList);
-		nbtTagCompound.setFloat("BreakSpeed", 1.0f);
+		nbtTagCompound.setFloat("BreakSpeed", material.getBreakSpeed());
+		int[] harvestLevels = new int[this.toolClasses.length];
+		Arrays.fill(harvestLevels, material.getHarvestLevel());
+		nbtTagCompound.setIntArray("HarvestLevels", harvestLevels);
 		return is;
 	}
 
