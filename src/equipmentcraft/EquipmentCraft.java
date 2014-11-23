@@ -60,10 +60,10 @@ public class EquipmentCraft {
 		GameRegistry.registerItem((hoe_head = new ItemParts(materials, true)).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("hoe_head"), "hoe_head");
 		GameRegistry.registerItem((handle = new ItemParts(materials, false)).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("handle").setFull3D(), "handle");
 		GameRegistry.registerItem((connect = new ItemParts(materials, false)).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("connect"), "connect");
-		GameRegistry.registerItem((pickaxe = new ItemCore(Utils.a(pickaxe_head, handle, connect), new ItemEffect[0], Utils.a("pickaxe"), pickaxeEffective)).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("pickaxe"), "pickaxe");
-		GameRegistry.registerItem((axe = new ItemCore(Utils.a(axe_head, handle, connect), new ItemEffect[0], Utils.a("axe"), axeEffective)).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("axe"), "axe");
-		GameRegistry.registerItem((shovel = new ItemCore(Utils.a(shovel_head, handle, connect), new ItemEffect[0], Utils.a("shovel"), shovelEffective)).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("shovel"), "shovel");
-		GameRegistry.registerItem((hoe = new ItemHoe(Utils.a(hoe_head, handle, connect), new ItemEffect[0])).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("hoe"), "hoe");
+		GameRegistry.registerItem((pickaxe = new ItemCore(Utils.a(pickaxe_head, handle, connect), new ItemEffect[0], Utils.a("pickaxe"), pickaxeEffective)).setUnlocalizedName("pickaxe"), "pickaxe");
+		GameRegistry.registerItem((axe = new ItemCore(Utils.a(axe_head, handle, connect), new ItemEffect[0], Utils.a("axe"), axeEffective)).setUnlocalizedName("axe"), "axe");
+		GameRegistry.registerItem((shovel = new ItemCore(Utils.a(shovel_head, handle, connect), new ItemEffect[0], Utils.a("shovel"), shovelEffective)).setUnlocalizedName("shovel"), "shovel");
+		GameRegistry.registerItem((hoe = new ItemHoe(Utils.a(hoe_head, handle, connect), new ItemEffect[0])).setUnlocalizedName("hoe"), "hoe");
 		GameRegistry.addRecipe(ToolBuild.create(pickaxe, 1, 0, 2, 1));
 		GameRegistry.addRecipe(ToolBuild.create(axe, 1, 0, 2, 1));
 		GameRegistry.addRecipe(ToolBuild.create(shovel, 1, 0, 2, 1));
