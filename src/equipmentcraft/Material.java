@@ -37,8 +37,12 @@ public class Material {
 		return this.name;
 	}
 	
+	public Item getItem(){
+		return this.item;
+	}
+	
 	public int getHarvestLevel(){
-		return harvestLevel;
+		return this.harvestLevel;
 	}
 	
 	public static Material getByName(String name) {

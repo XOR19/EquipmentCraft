@@ -1,7 +1,6 @@
 package equipmentcraft.items;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -36,16 +35,21 @@ public class ItemCore extends Item {
 	
 	private IIcon[][] effectIcons;
 	
-	private Set<String> toolClasses;
+	private String[] toolClasses;
+	
+	private Set<String> toolClassesSet;
 	
 	private String name;
 	
-	public ItemCore(ItemParts[] parts, ItemEffect[] effects, Set<String> toolClasses){
+	public ItemCore(ItemParts[] parts, ItemEffect[] effects, String[] toolClasses){
 		this.parts = parts;
 		this.partIcons = new IIcon[parts.length][];
 		this.effects = effects;
 		this.effectIcons = new IIcon[effects.length][];
-		this.toolClasses = Collections.unmodifiableSet(toolClasses);
+		this.toolClasses = toolClasses;
+		this.toolClassesSet = Utils.asSet(toolClasses);
+		setHasSubtypes(false);
+		setMaxStackSize(1);
 	}
 	
 	@Override
@@ -150,7 +154,6 @@ public class ItemCore extends Item {
 		return 1;
 	}
 	
-	@SuppressWarnings({ "static-method", "unused" })
 	public int getUseIndex(int useRemaining){
 		return 0;
 	}
@@ -187,7 +190,7 @@ public class ItemCore extends Item {
 	
 	@Override
 	public Set<String> getToolClasses(ItemStack stack) {
-		return this.toolClasses;
+		return this.toolClassesSet;
 	}
 	
 	@Override
@@ -195,7 +198,12 @@ public class ItemCore extends Item {
 		NBTTagCompound nbtTagCompound = Utils.getTagCompound(stack);
 		if(nbtTagCompound==null)
 			return -1;
-		return nbtTagCompound.getInteger("harvestLevel@"+toolClass)-1;
+		for(int i=0; i<this.toolClasses.length; i++){
+			if(toolClass.equals(this.toolClasses[i])){
+				return nbtTagCompound.getIntArray("harvestLevel")[i];
+			}
+		}
+		return -1;
 	}
 	
 	@Override
@@ -265,5 +273,7 @@ public class ItemCore extends Item {
 			}
 		}
 	}
+	
+	
 	
 }

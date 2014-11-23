@@ -1,7 +1,5 @@
 package equipmentcraft;
 
-import java.util.HashSet;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -11,6 +9,7 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import equipmentcraft.items.ItemCore;
+import equipmentcraft.items.ItemHoe;
 import equipmentcraft.items.ItemParts;
 
 @Mod(modid="EquipmentCraft", name="EquipmentCraft", version="1.0.0")
@@ -25,10 +24,14 @@ public class EquipmentCraft {
 	
 	public static ItemParts pickaxe_head;
 	public static ItemParts axe_head;
+	public static ItemParts shovel_head;
+	public static ItemParts hoe_head;
 	public static ItemParts handle;
 	public static ItemParts connect;
 	public static ItemCore pickaxe;
 	public static ItemCore axe;
+	public static ItemCore shovel;
+	public static ItemCore hoe;
 	
 	@EventHandler
 	public void init(FMLInitializationEvent event){
@@ -39,16 +42,27 @@ public class EquipmentCraft {
 		diamond = new Material("diamond", Items.diamond, 0x27B29A, 3);
 		emerald = new Material("emerald", Items.emerald, 0x00B038, 3);
 		
+		/*
+		 * Maybe to add:
+		 * Bone, Paper, Brick, Nether Brick Materials
+		 */
+		
 		Material[] materials = {wood, stone, iron, gold, diamond, emerald};
 		
 		GameRegistry.registerItem((pickaxe_head = new ItemParts(materials, true)).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("pickaxe_head"), "pickaxe_head");
 		GameRegistry.registerItem((axe_head = new ItemParts(materials, true)).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("axe_head"), "axe_head");
-		GameRegistry.registerItem((handle = new ItemParts(materials, false)).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("handle"), "handle");
+		GameRegistry.registerItem((shovel_head = new ItemParts(materials, true)).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("shovel_head"), "shovel_head");
+		GameRegistry.registerItem((hoe_head = new ItemParts(materials, true)).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("hoe_head"), "hoe_head");
+		GameRegistry.registerItem((handle = new ItemParts(materials, false)).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("handle").setFull3D(), "handle");
 		GameRegistry.registerItem((connect = new ItemParts(materials, false)).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("connect"), "connect");
-		GameRegistry.registerItem((pickaxe = new ItemCore(new ItemParts[]{pickaxe_head, handle, connect}, new ItemEffect[0], new HashSet<String>())).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("pickaxe"), "pickaxe");
-		GameRegistry.registerItem((axe = new ItemCore(new ItemParts[]{axe_head, handle, connect}, new ItemEffect[0], new HashSet<String>())).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("axe"), "axe");
+		GameRegistry.registerItem((pickaxe = new ItemCore(Utils.a(pickaxe_head, handle, connect), new ItemEffect[0], Utils.a("pickaxe"))).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("pickaxe"), "pickaxe");
+		GameRegistry.registerItem((axe = new ItemCore(Utils.a(axe_head, handle, connect), new ItemEffect[0], Utils.a("axe"))).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("axe"), "axe");
+		GameRegistry.registerItem((shovel = new ItemCore(Utils.a(shovel_head, handle, connect), new ItemEffect[0], Utils.a("shovel"))).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("shovel"), "shovel");
+		GameRegistry.registerItem((hoe = new ItemHoe(Utils.a(hoe_head, handle, connect), new ItemEffect[0])).setCreativeTab(CreativeTabs.tabTools).setUnlocalizedName("hoe"), "hoe");
 		GameRegistry.addRecipe(ToolBuild.create(pickaxe, 1, 0, 2, 1));
 		GameRegistry.addRecipe(ToolBuild.create(axe, 1, 0, 2, 1));
+		GameRegistry.addRecipe(ToolBuild.create(shovel, 1, 0, 2, 1));
+		GameRegistry.addRecipe(ToolBuild.create(hoe, 1, 0, 2, 1));
 	}
 	
 }

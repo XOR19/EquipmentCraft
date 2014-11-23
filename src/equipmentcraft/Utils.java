@@ -1,5 +1,9 @@
 package equipmentcraft;
 
+import java.util.AbstractSet;
+import java.util.Iterator;
+import java.util.Set;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
@@ -39,6 +43,44 @@ public class Utils {
 	
 	public static Minecraft mc(){
 		return Minecraft.getMinecraft();
+	}
+	
+	public static <T> T[] a(T...array){
+		return array;
+	}
+	
+	public static <T> Set<T> asSet(final T...args){
+		return new AbstractSet<T>() {
+			
+			@Override
+			public Iterator<T> iterator() {
+				return new Iterator<T>() {
+
+					private int index;
+					
+					@Override
+					public boolean hasNext() {
+						return args.length>this.index;
+					}
+
+					@Override
+					public T next() {
+						return args[this.index++];
+					}
+
+					@Override
+					public void remove() {
+						throw new UnsupportedOperationException();
+					}
+					
+				};
+			}
+
+			@Override
+			public int size() {
+				return args.length;
+			}
+		};
 	}
 	
 }
