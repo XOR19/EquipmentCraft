@@ -22,7 +22,7 @@ public class EquipmentCraft {
 	public static Material gold;
 	public static Material diamond;
 	public static Material emerald;
-	public static Material obsidan;
+	public static Material obsidian;
 	
 	public static ItemParts pickaxe_head;
 	public static ItemParts axe_head;
@@ -43,14 +43,14 @@ public class EquipmentCraft {
 		gold = new Material("gold", Items.gold_ingot, 0xBCBF4D, 0, 12.0f);
 		diamond = new Material("diamond", Items.diamond, 0x27B29A, 3, 8.0f);
 		emerald = new Material("emerald", Items.emerald, 0x00B038, 3, 12.0f);
-		obsidian = new Material("obsidian", Item.getItemFromBlock(Blocks.obsidian), 0x010000, 3, 14.0f);
+		obsidian = new Material("obsidian", Item.getItemFromBlock(Blocks.obsidian), 0x101018, 3, 14.0f);
 		
 		/*
 		 * Maybe to add:
-		 * Bone, Paper, Brick, Nether Brick, Flint, String Materials
+		 * Bone, Paper, Brick, Nether Brick, Flint, String, Feather Materials
 		 */
 		
-		Material[] materials = {wood, stone, iron, gold, diamond, emerald, obsidan};
+		Material[] materials = {wood, stone, iron, gold, diamond, emerald, obsidian};
 		
 		Block[] pickaxeEffective = {Blocks.cobblestone, Blocks.double_stone_slab, Blocks.stone_slab, Blocks.stone, Blocks.sandstone, Blocks.mossy_cobblestone, Blocks.iron_ore, Blocks.iron_block, Blocks.coal_ore, Blocks.gold_block, Blocks.gold_ore, Blocks.diamond_ore, Blocks.diamond_block, Blocks.ice, Blocks.netherrack, Blocks.lapis_ore, Blocks.lapis_block, Blocks.redstone_ore, Blocks.lit_redstone_ore, Blocks.rail, Blocks.detector_rail, Blocks.golden_rail, Blocks.activator_rail};
 		Block[] axeEffective = {Blocks.planks, Blocks.bookshelf, Blocks.log, Blocks.log2, Blocks.chest, Blocks.pumpkin, Blocks.lit_pumpkin};
