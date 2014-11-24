@@ -45,7 +45,7 @@ public class EquipmentCraft {
 		
 		/*
 		 * Maybe to add:
-		 * Bone, Paper, Brick, Nether Brick Materials
+		 * Bone, Paper, Brick, Nether Brick, Flint Materials
 		 */
 		
 		Material[] materials = {wood, stone, iron, gold, diamond, emerald};
